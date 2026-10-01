@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creature Player</title>
+    <style>
+        :root {
+            --bg-color: #0e0e10;       /* Twitch dark mode canvas baseline background */
+            --card-color: #18181b;     /* High-contrast lighter grey section cards */
+            --accent-cyan: #1efcf8;    /* Custom neon accent framework color */
+            --text-main: #fbffff;      /* Full-bleed solid readable text */
+            --text-muted: #a1a1aa;    /* Subtitle secondary captions font text */
+
+        /* Add this inside your :root { ... } block */
+        --accent-purple: #a970ff;  /* 🎯 Official Twitch purple accent fallback color */
+
+        /* Add this anywhere in your style tag to target text links */
+        .step-content a {
+            color: var(--accent-purple);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.15s ease, text-decoration 0.15s ease;
+        }
+
+        .step-content a:hover {
+            color: #bf94ff;        /* Lighter vibrant purple highlight tint on hover */
+            text-decoration: underline;
+        }
+
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        
+        /* Centralized Column Layout Container */
+        .container {
+            width: 100%;
+            max-width: 680px;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            box-sizing: border-box;
+        }
+
+        /* Header Image & Screenshot Card Group */
+        .header-panel {
+            position: relative;
+            width: 100%;
+            background-color: var(--card-color);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-image {
+            width: 100%;
+            height: 380px;            /* Sized up to ensure the stretched screenshot elements look sharp */
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100% 100%; /* 🎯 THE FIX: Forces the screenshot to forcefully stretch to the edges */
+        }
+
+
+        .header-details {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .header-details h1 {
+            margin: 0 0 8px 0;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+
+        .header-details p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* The 3-Step Installation Sections Framework */
+        .step-section {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .step-section:hover {
+            border-color: rgba(30, 252, 248, 0.25);
+            box-shadow: 0 12px 32px rgba(30, 252, 248, 0.04);
+        }
+
+        /* Step Numerical Indicator Badge */
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(30, 252, 248, 0.1);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 50%;
+            color: var(--accent-cyan);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            font-size: 16px;
+            flex-shrink: 0;
+            box-shadow: 0 0 12px rgba(30, 252, 248, 0.15);
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-content h2 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .step-content p {
+            margin: 0 0 16px 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Interactive Call-To-Action Release Buttons */
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background-color: var(--accent-cyan);
+            color: #000000;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(30, 252, 248, 0.3);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background-color: #ffffff;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .action-btn.secondary {
+            background-color: transparent;
+            border: 1px solid #3f3f46;
+            color: #ffffff;
+            box-shadow: none;
+        }
+
+        .action-btn.secondary:hover {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Webstore Button Grid Placement Framework */
+        .webstore-button-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+                /* 🎯 UPDATED: Upscaled image dimension layout bounding frame */
+        .webstore-btn-img {
+            display: block;
+            width: 195px;             /* Enforces a standardized wide aspect footprint */
+            height: 62px;             /* Stretches the vertical size for high readability */
+            object-fit: fill;         /* Stretches the image background perfectly to the border edges */
+            border-radius: 8px;       
+        }
+
+        .guide-btn-img {
+            display: block;
+            width: 100%;              /* 100% of the grid column container */
+            max-width: 270px;         /* Max size protection cap */
+            height: 145px;            
+            object-fit: cover;        
+            border-radius: 8px;       
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+        }
+
+
+        /* Direct hover target sync for the updated guide dimensions */
+        .guide-image-container:hover .guide-btn-img {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 0 16px rgba(30, 252, 248, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+        }
+
+
+        .webstore-btn:hover .webstore-btn-img {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 0 16px rgba(30, 252, 248, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* 🎯 UPDATED: Symmetrically mirrors the exact new size of the chromium asset button */
+        .btn-image-placeholder {
+            width: 195px;             
+            height: 62px;             
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px dashed var(--accent-cyan);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;          /* Slightly larger typography text size to match layout scale */
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-sizing: border-box;
+            transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+        }
+
+        /* 🎯 UPDATED: Scales the vertical dividing line art to seamlessly track the buttons height */
+        .vertical-divider {
+            width: 1px;
+            height: 62px;
+            background-color: rgba(255, 255, 255, 0.12);
+            flex-shrink: 0;
+        }
+
+
+
+        .webstore-btn:hover .btn-image-placeholder {
+            border-color: #ffffff;
+            background-color: rgba(30, 252, 248, 0.05);
+            color: #ffffff;
+        }
+
+                /* Guide Image Badge Overlay Framework Wrapper */
+        .guide-image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .webstore-btn:hover .webstore-btn-img,
+        .guide-image-container:hover .webstore-btn-img {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 0 16px rgba(30, 252, 248, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .guide-badge {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background-color: #18181b;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 4px;
+            color: var(--accent-cyan);
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            z-index: 5;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+       <div class="header-panel">
+            <div class="header-image" style="background-image: url('https://segs.lol/Q6wVbd');"></div>
+            <div class="header-details">
+                <h1>Creature Player</h1>
+                 <p>Easily watch Kick, Vaughn with 1 second latency, Angelthump, Rumble and OK.RU streams, with the platform's chat! Automatically keeps track of the 
+                current conductor and available channels. Auto updates. More features are in development, stay tuned. Installation takes 30 seconds, very easy
+            just follow the steps down below:</p>
+            </div>
+     </div>
+
+        <!-- STEP 1: EXTENSION DEPLOYMENT -->
+        <!-- STEP 1: EXTENSION DEPLOYMENT -->
+    <div class="step-section">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h2>Install TamperMonkey</h2>
+            <p>All you need is the tampermonkey userscript extension, it's available for every browser. I suppose you could use it with other userscript managers, but it hasn't been tested.</p>
+            
+            <!-- 🎯 NEW: Centered Extension Webstore Buttons with 1px Vertical Divider -->
+            <div class="webstore-button-group">
+                <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en" target="_blank" class="webstore-btn" title="Tampermonkey on Chrome Web Store">
+                    <!-- Placeholder for Chromium Webstore custom image -->
+                      <img src="https://segs.lol/KoeNxx" alt="Get Tampermonkey for Chromium" class="webstore-btn-img" />
+                </a>
+                
+                <div class="vertical-divider"></div>
+                
+                <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/" target="_blank" class="webstore-btn" title="Tampermonkey on Firefox Add-ons">
+                    <!-- Placeholder for Firefox Webstore custom image -->
+                     <img src="https://segs.lol/7KY8lX" alt="Get Tampermonkey for Firefox" class="webstore-btn-img" />
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- STEP 2: USER METADATA SUBSCRIPTION -->
+                <!-- STEP 2: USER METADATA SUBSCRIPTION -->
+                <!-- STEP 2: USER METADATA SUBSCRIPTION -->
+        <div class="step-section">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h2>Enable Developer Mode & Allow Access to User Scripts</h2>
+                <p>This step is only necessary for Chromium browsers (Chrome, Edge, Brave, Opera, etc.). If you are on Firefox, you can completely skip it.</p>
+                
+                <!-- 🎯 Write your brief instruction block paragraph text here -->
+                <p style="margin-top: -8px; margin-bottom: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+                    Open a new tab and navigate to your browser's extensions page (e.g., <strong>chrome://extensions</strong> or <strong>edge://extensions</strong>). Then, follow the visual steps below to finish the setup:
+                </p>
+
+                <!-- Step A and Step B Visual Guide Image Grid Layout Row -->
+                <div style="margin-top: 16px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: flex-start; width: 100%; box-sizing: border-box;">
+                    
+                    <!-- Step A Column Container -->
+                    <div style="display: flex; flex-direction: column; align-items: center; padding-right: 20px; box-sizing: border-box;"> <!-- 🎯 Right Side Margin Added -->
+                        <div class="guide-image-container">
+                            <span class="guide-badge">Step A</span>
+                            <img src="https://segs.lol/TyEKiP" alt="Turn on Developer Mode toggle switch" class="guide-btn-img" />
+                        </div>
+                        <!-- Step A Caption Description -->
+                        <span style="font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.4; font-weight: 500; margin-top: 8px;">
+                            Turn on the <strong>Developer Mode</strong> toggle switch in the top-right corner (Chrome) or somewhere in the extensions page for other browsers. This might not be necessary anymore, enable it just in case.
+                        </span>
+                    </div>
+                    
+                    <!-- Center Divider -->
+                    <div class="vertical-divider" style="height: 145px; margin-top: 0;"></div>
+                    
+                    <!-- Step B Column Container -->
+                    <div style="display: flex; flex-direction: column; align-items: center; padding-left: 20px; box-sizing: border-box;"> <!-- 🎯 Left Side Margin Added -->
+                        <div class="guide-image-container">
+                            <span class="guide-badge">Step B</span>
+                            <img src="https://segs.lol/1F8RDd" alt="Enable Allow access to file URLs checkbox option" class="guide-btn-img" />
+                        </div>
+                        <!-- Step B Caption Description -->
+                        <span style="font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.4; font-weight: 500; margin-top: 8px;">
+                            Click details on Tampermonkey extension and check <strong>Allow user scripts.</strong>. This is the important step to make sure the player actually works correctly!
+                        </span>
+                    </div>
+                    
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!-- STEP 3: INSTALL THE SCRIPT -->
+        <div class="step-section">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h2>Install the script</h2>
+                <p>Just click the button below to install the creature player userscript directly into Tampermonkey, then head to <a href="https://www.twitch.tv/tapa_tapa_mateo">tapa_tapa_mateo! </a></p>
+                
+                <!-- 🎯 NEW: Centered Custom Image Action Button Frame -->
+                <div class="webstore-button-group" style="margin-top: 20px;">
+                    <!-- 🛠️ REPLACE the href with your raw GreasyFork or GitHub user.js installation URL track -->
+                    <a href="https://update.greasyfork.org/scripts/598228/Creature%20Player%20-%20Beta.user.js" class="webstore-btn" title="Click to install or update Creature Player script">
+                        <!-- 🛠️ REPLACE src with your custom script install button image link asset -->
+                        <img src="https://segs.lol/Q8QzKa" alt="Install Creature Player Userscript" class="webstore-btn-img" />
+                    </a>
+                </div>
+                <div style="width: calc(100% + 48px); margin-left: -24px; margin-right: -24px; margin-bottom: 0; height: 180px; overflow: hidden; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 8px;">
+                <!-- 🛠️ REPLACE src with your actual player layout preview or stream dashboard graphic asset link -->
+                <img src="https://segs.lol/MgurFr" alt="Creature Player Interface Showcase Preview" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+            </div>
+            </div>
+        </div>
+         
+    </div>
+        <!-- 🎯 Full-Screen Image Lightbox Hover Overlay Menu Frame -->
+    <div id="imageLightboxOverlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(10, 10, 12, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 2147483647; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none;">
+        <img id="lightboxTargetImage" src="" alt="Full size preview blueprint asset" style="max-width: 85vw; max-height: 80vh; object-fit: contain; border-radius: 12px; box-shadow: 0 24px 60px rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); transform: scale(0.95); transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);" />
+    </div>
+            <script>
+        (function() {
+            // =========================================================================
+            // 🦊 1. FIREFOX AUTO-HIDE SHIELD
+            // =========================================================================
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (userAgent.includes("firefox")) {
+                const stepSections = document.querySelectorAll(".step-section");
+                if (stepSections.length >= 2) {
+                    stepSections[1].style.display = "none"; // Hides Step 2 box safely
+                }
+            }
+
+            // =========================================================================
+            // 🛰️ 2. FULL-SCREEN LIGHTBOX HOVER OVERLAY SYSTEM (SECOND IMAGE ONLY)
+            // =========================================================================
+            const overlay = document.getElementById("imageLightboxOverlay");
+            const lightboxImg = document.getElementById("lightboxTargetImage");
+            
+            // Target the guide-btn-img element that sits inside the second guide column structure explicitly
+            const guideImages = document.querySelectorAll(".guide-btn-img");
+            const targetSecondImage = guideImages.length >= 2 ? guideImages[1] : null;
+            
+            if (!overlay || !lightboxImg || !targetSecondImage) return;
+
+            // Engage full-screen display overlay state on mouse hover enter
+            targetSecondImage.addEventListener("mouseenter", function() {
+                lightboxImg.src = targetSecondImage.src;
+                overlay.style.display = "flex";
+                
+                // Force frame rendering cycles to execute smooth opacity transitions
+                requestAnimationFrame(() => {
+                    overlay.style.opacity = "1";
+                    lightboxImg.style.transform = "scale(1)";
+                });
+            });
+
+            // Clear out foreground panels and dissolve lightbox on mouse hover exit
+            targetSecondImage.addEventListener("mouseleave", function() {
+                overlay.style.opacity = "0";
+                lightboxImg.style.transform = "scale(0.95)";
+                
+                // Delay closure until the 220ms fade transition completely finishes
+                setTimeout(() => {
+                    if (overlay.style.opacity === "0") {
+                        overlay.style.display = "none";
+                        lightboxImg.src = ""; // Flush memory pipeline strings
+                    }
+                }, 220);
+            });
+        })();
+    </script>
+</body>
+</html>
