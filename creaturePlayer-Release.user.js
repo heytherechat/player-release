@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Creature Player - Release
 // @namespace    http://tampermonkey.net/
-// @version      2
+// @version      3
 // @description  Best way to watch creature kino.
 // @author       heytherechat
 // @match        *://*.twitch.tv/*
