@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Creature Player - Beta
 // @namespace    http://tampermonkey.net/
-// @version      7
+// @version      8
 // @description  Best way to watch creature kino.
 // @author       heytherechat
 // @downloadURL  https://update.greasyfork.org/scripts/598228/Creature%20Player%20-%20Release.user.js
@@ -39,6 +39,7 @@
 // @connect      rumble.com
 // @connect      rumble.cloud
 // @connect      *
+// @connect      greasyfork.org
 // @resource     MATERIAL_SYMBOLS_CSS https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block&icon_names=chat_bubble,chat_bubble_off,check,fast_forward,fullscreen,fullscreen_exit,info,live_tv,pause,person,play_arrow,settings,sync,tv_gen,user_attributes,volume_down,volume_mute,volume_off,volume_up
 // @resource     KICK_LOGO https://segs.lol/w0l0GO
 // @resource     ANGELTHUMP_LOGO https://segs.lol/Ri4EKq
