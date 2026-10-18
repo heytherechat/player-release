@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Creature Player - Beta
 // @namespace    http://tampermonkey.net/
-// @version      15
+// @version      16
 // @description  Best way to watch creature kino.
 // @author       heytherechat
 // @downloadURL  https://update.greasyfork.org/scripts/598228/Creature%20Player%20-%20Release.user.js
@@ -48,4 +48,6 @@
 // @resource     RUMBLE_LOGO https://kappa.lol/zN1lKo
 // @resource     VAUGHN_LOGO https://kappa.lol/FH5Kpu
 // @resource     PLAYER_BUTTON https://kappa.lol/k5NwFk
+// @resource     OFFLINE_SCREEN_1 https://kappa.lol/Uw5zWw
+// @resource     OFFLINE_SCREEN_2 https://kappa.lol/vseKqh
 // ==/UserScript==
