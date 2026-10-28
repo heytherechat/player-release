@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Creature Player - Beta
 // @namespace    http://tampermonkey.net/
-// @version      16
+// @version      17
 // @description  Best way to watch creature kino.
 // @author       heytherechat
 // @downloadURL  https://update.greasyfork.org/scripts/598228/Creature%20Player%20-%20Release.user.js
@@ -39,8 +39,9 @@
 // @connect      rumble.com
 // @connect      rumble.cloud
 // @connect      greasyfork.org
+// @connect      github.com
 // @connect      *
-// @resource     MATERIAL_SYMBOLS_CSS https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block&icon_names=chat_bubble,chat_bubble_off,check,fast_forward,fullscreen,fullscreen_exit,info,live_tv,pause,person,play_arrow,settings,sync,tv_gen,user_attributes,volume_down,volume_mute,volume_off,volume_up,width_wide
+// @resource     MATERIAL_SYMBOLS_CSS https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block&icon_names=chat_bubble,chat_bubble_off,check,fast_forward,fullscreen,fullscreen_exit,info,live_tv,pause,person,pip,pip_exit,play_arrow,settings,sync,tv_gen,user_attributes,update,volume_down,volume_mute,volume_off,volume_up,width_wide
 // @resource     KICK_LOGO https://kappa.lol/eR4Zef
 // @resource     ANGELTHUMP_LOGO https://kappa.lol/xGsdhN
 // @resource     TWITCH_LOGO https://kappa.lol/IlktYo
