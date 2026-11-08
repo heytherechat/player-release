@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Creature Player - Beta
 // @namespace    http://tampermonkey.net/
-// @version      19
+// @version      20
 // @description  Best way to watch creature kino.
 // @author       heytherechat
-// @downloadURL  https://update.greasyfork.org/scripts/598228/Creature%20Player%20-%20Release.user.js
+// @downloadURL  https://github.com/heytherechat/player-release/blob/main/creaturePlayer-Release.user.js
 // @updateURL    https://github.com/heytherechat/player-release/raw/refs/heads/main/header.user.js
 // @match        *://*.twitch.tv/*
 // @match        *://*.vaughn.live/*
